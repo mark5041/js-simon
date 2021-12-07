@@ -39,19 +39,22 @@ function ArrayToString(array)
     return string;
 }
 
-// Generate Grid
+
 
 function grid(index, array)
 {
     let row = document.querySelector(".row");
     let box = document.createElement("div");
+    let string_box = document.querySelector(".game-over");
+    let string = document.querySelector(".game-over > h1");
     box.classList.add("box");
     box.append(index);
     row.append(box);
 
     let attemps = 3;
+    let result;
     box.addEventListener("click", 
-    function()
+    function click_trigger()
     {
         if(!array.includes(parseInt(box.innerText)))
         {
@@ -60,6 +63,9 @@ function grid(index, array)
             if(wrong_box.length == attemps)
             {
                 row.classList.add("opacity-50")
+                string_box.classList.remove("d-none");
+                string.innerText='';
+                string.innerText='hai perso';
             }
         }
         else
@@ -68,11 +74,19 @@ function grid(index, array)
             let right_box = document.querySelectorAll(".box.bg-green");
             if(right_box.length == 5)
             {
-                row.classList.add("opacity-50")
+                row.classList.add("opacity-50");
+                string_box.classList.remove("d-none");
+                string.innerText='';
+                string.innerText='hai vinto';
             }
         }
     });
+
+    
 }
+
+
+
 
 let array_num = generate_Number();
 let string_num = ArrayToString(array_num);
@@ -92,6 +106,17 @@ setTimeout(function(){
             grid(i, array_num);
         }
 
+        let result = document.querySelector(".game-over > h1").innerText;
+
+        if(result == "win" || result == "lose")
+        {
+            let all_box = document.querySelectorAll(".box");
+            for(let i= 0; i <= all_box.length; i++)
+            {
+                all_box[i].removeEventListener("click", click_trigger);
+            }
+        }
+
     }, 100)
-}, 800000)
+}, 2000)
 
