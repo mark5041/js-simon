@@ -18,6 +18,7 @@ function generate_Number()
             i--;
         }
     }
+    console.log(Array);
     return Array;
 }
 
@@ -38,29 +39,59 @@ function ArrayToString(array)
     return string;
 }
 
+// Generate Grid
+
+function grid(index, array)
+{
+    let row = document.querySelector(".row");
+    let box = document.createElement("div");
+    box.classList.add("box");
+    box.append(index);
+    row.append(box);
+
+    let attemps = 3;
+    box.addEventListener("click", 
+    function()
+    {
+        if(!array.includes(parseInt(box.innerText)))
+        {
+            box.classList.add("bg-red");
+            let wrong_box = document.querySelectorAll(".box.bg-red");
+            if(wrong_box.length == attemps)
+            {
+                row.classList.add("opacity-50")
+            }
+        }
+        else
+        {
+            box.classList.add("bg-green");
+            let right_box = document.querySelectorAll(".box.bg-green");
+            if(right_box.length == 5)
+            {
+                row.classList.add("opacity-50")
+            }
+        }
+    });
+}
+
 let array_num = generate_Number();
 let string_num = ArrayToString(array_num);
 let num_box = document.querySelector(".game-over");
+let row = document.querySelector(".row");
 
 num_box.innerHTML = `<h1> ${string_num} </h1>`;
 
 setTimeout(function(){
     num_box.classList.add("d-none");
+    row.classList.remove("d-none");
     setTimeout(function(){
-        let error = false;
-        let i = 0;
-        while( i < 5 && error == false)
+        
+        
+        for(let i = 0; i < 100; i++)
         {
-            let user_num = parseInt(prompt("inserisci un numero"));
-            if(!array_num.includes(user_num))
-            {
-                error = true;
-                alert("hai perso");
-            }
-            else
-            {
-                i++;
-            }
+            grid(i, array_num);
         }
+
     }, 100)
-}, 10000)
+}, 800000)
+
