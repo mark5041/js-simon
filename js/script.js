@@ -58,13 +58,23 @@ let row = document.querySelector(".row");
 num_box.innerHTML = `<h1> ${string_num} </h1>`;
 
 setTimeout(function(){
-    num_box.classList.add("d-none");
-    setTimeout(function(){
-        let user_numbers = [];
-        let button = document.querySelector(".send")
-        let i = 0;
+    num_box.innerHTML = '';
+    let play;
+    play = setTimeout(function()
+    {
+        let button = document.querySelector(".send");
         let insert = document.querySelector(".input-box");
+        let i = 0;
+        let play_time;
+        let user_numbers = [];
         insert.classList.remove("d-none");
+
+        play_time = setTimeout(function()
+        {
+            insert.classList.add("d-none");
+            num_box.innerHTML = `<h1> Tempo scaduto </h1>`;
+        }, 30000);
+
         button.addEventListener("click", 
         function()
         {
@@ -89,13 +99,14 @@ setTimeout(function(){
                         user_numbers.push(user_number);
                         if(!array_num.includes(user_number))
                         {
-                            alert("hai perso");
+                            num_box.innerHTML = `<h1> HAI PERSO </h1>`;
+                            clearTimeout(play_time);
                         }
                         else    if(user_numbers.length == array_num.length)
                                 {
-                                    alert("hai vinto");
+                                    num_box.innerHTML = `<h1> HAI VINTO </h1>`;
+                                    clearTimeout(play_time);
                                 }
-                        
                     }
                 }
             }
@@ -103,4 +114,6 @@ setTimeout(function(){
 
     }, 100)
 }, 2000)
+
+
 
