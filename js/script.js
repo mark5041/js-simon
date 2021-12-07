@@ -84,7 +84,7 @@ setTimeout(function(){
             {
                 if(user_number < 1 || user_number > 20)
                 {
-                    alert("il numero nono rientra nel range");
+                    alert("il numero non rientra nel range");
                     i--;
                 }
                 else
